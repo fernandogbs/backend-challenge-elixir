@@ -6,7 +6,6 @@ defmodule EcommerceWeb.ErrorJSONTest do
   end
 
   test "renders 500" do
-    assert EcommerceWeb.ErrorJSON.render("500.json", %{}) ==
-             %{errors: %{detail: "Internal Server Error"}}
+    assert EcommerceWeb.ErrorJSON.render("500.json", %{}) == %{errors: %{detail: "Internal Server Error"}}
   end
 end

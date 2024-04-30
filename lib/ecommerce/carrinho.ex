@@ -22,11 +22,11 @@ defmodule Ecommerce.Carrinho do
   end
 
   @doc """
-  Gets a single item.
+  Obtem um unico objeto pelo id.
 
-  Raises `Ecto.NoResultsError` if the Item does not exist.
+  Retorna `Ecto.NoResultsError` se o objeto não existir.
 
-  ## Examples
+  ## Examplos
 
       iex> get_item!(123)
       %Item{}
@@ -38,9 +38,9 @@ defmodule Ecommerce.Carrinho do
   def get_item!(id), do: Repo.get!(Item, id)
 
   @doc """
-  Creates a item.
+  Cria um item
 
-  ## Examples
+  ## Examplos
 
       iex> create_item(%{field: value})
       {:ok, %Item{}}
@@ -56,9 +56,9 @@ defmodule Ecommerce.Carrinho do
   end
 
   @doc """
-  Updates a item.
+  Atualiza um item.
 
-  ## Examples
+  ## Exemplos
 
       iex> update_item(item, %{field: new_value})
       {:ok, %Item{}}
@@ -73,8 +73,9 @@ defmodule Ecommerce.Carrinho do
     |> Repo.update()
   end
 
+
   @doc """
-  Deletes a item.
+  Exclui um item.
 
   ## Exemplos
 
@@ -83,16 +84,15 @@ defmodule Ecommerce.Carrinho do
 
       iex> delete_item(item)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_item(%Item{} = item) do
     Repo.delete(item)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking item changes.
+  Retorna um `%Ecto.Changeset{}` para mapear as modificações feitas no objeto.
 
-  ## Examples
+  ## Examplos
 
       iex> change_item(item)
       %Ecto.Changeset{data: %Item{}}

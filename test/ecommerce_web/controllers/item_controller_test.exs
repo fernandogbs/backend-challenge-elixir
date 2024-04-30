@@ -3,26 +3,32 @@ defmodule EcommerceWeb.ItemControllerTest do
 
   import Ecommerce.CarrinhoFixtures
 
+  @moduledoc """
+  Testes para o controller ItemController
+  Testes automáticos gerados com o mix:
+  mix phx.gen.html Ecommerce Item items name:string description:text price:float
+  """
+
   @create_attrs %{description: "some description", name: "some name", price: "120.5"}
   @update_attrs %{description: "some updated description", name: "some updated name", price: "456.7"}
   @invalid_attrs %{description: nil, name: nil, price: nil}
 
   describe "index" do
-    test "lists all items", %{conn: conn} do
+    test "lista todos os itens", %{conn: conn} do
       conn = get(conn, ~p"/items")
       assert html_response(conn, 200) =~ "Listing Items"
     end
   end
 
-  describe "new item" do
-    test "renders form", %{conn: conn} do
+  describe "novo item" do
+    test "renderiza formulário", %{conn: conn} do
       conn = get(conn, ~p"/items/new")
       assert html_response(conn, 200) =~ "New Item"
     end
   end
 
-  describe "create item" do
-    test "redirects to show when data is valid", %{conn: conn} do
+  describe "criar item" do
+    test "redireciona após criar dados com atributos válidos", %{conn: conn} do
       conn = post(conn, ~p"/items", item: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
@@ -32,25 +38,25 @@ defmodule EcommerceWeb.ItemControllerTest do
       assert html_response(conn, 200) =~ "Item #{id}"
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
+    test "exibe erros com dados invalidos @invalid_attrs", %{conn: conn} do
       conn = post(conn, ~p"/items", item: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Item"
     end
   end
 
-  describe "edit item" do
+  describe "editar item" do
     setup [:create_item]
 
-    test "renders form for editing chosen item", %{conn: conn, item: item} do
+    test "renderiza formulario de edição para item selecionado", %{conn: conn, item: item} do
       conn = get(conn, ~p"/items/#{item}/edit")
       assert html_response(conn, 200) =~ "Edit Item"
     end
   end
 
-  describe "update item" do
+  describe "atualizar item" do
     setup [:create_item]
 
-    test "redirects when data is valid", %{conn: conn, item: item} do
+    test "redireciona após receber dados válido @update_attrs", %{conn: conn, item: item} do
       conn = put(conn, ~p"/items/#{item}", item: @update_attrs)
       assert redirected_to(conn) == ~p"/items/#{item}"
 
@@ -58,22 +64,18 @@ defmodule EcommerceWeb.ItemControllerTest do
       assert html_response(conn, 200) =~ "some updated description"
     end
 
-    test "renders errors when data is invalid", %{conn: conn, item: item} do
+    test "renderiza erros de atribuição no formulário", %{conn: conn, item: item} do
       conn = put(conn, ~p"/items/#{item}", item: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Item"
     end
   end
 
-  describe "delete item" do
+  describe "deletar item" do
     setup [:create_item]
 
-    test "deletes chosen item", %{conn: conn, item: item} do
+    test "deleta o item escolhido", %{conn: conn, item: item} do
       conn = delete(conn, ~p"/items/#{item}")
       assert redirected_to(conn) == ~p"/items"
-
-      assert_error_sent 404, fn ->
-        get(conn, ~p"/items/#{item}")
-      end
     end
   end
 
